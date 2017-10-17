@@ -146,4 +146,4 @@ void loop()
       delay(500);
     }
     digitalWrite(UPPER_R, LOW); digitalWrite(LOWER_R, LOW);        // 상,하 빨간불 끄기
-
+}
