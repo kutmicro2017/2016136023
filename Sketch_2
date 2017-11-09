@@ -201,7 +201,7 @@ void loop() {
       state = true;
       unsigned int pedSignStart, pedSignEnd;
       
-      for (int num = 3; num >= 0; num--)      // 스위치 눌렸을 때 대기 시간
+      for (int num = 2; num >= 0; num--)      // 스위치 눌렸을 때 대기 시간
       {
         pedSignStart = pedSignEnd = millis();
         while (pedSignEnd - pedSignStart < 1000 ) 
@@ -218,6 +218,11 @@ void loop() {
       for (int num = PedestrianMovingTime / 1000; num >= 0; num--) // 10초 동안
       {
         pedSignStart = pedSignEnd = millis();
+        if(state == false)         // 보행자 눌리면 다시 10초
+       {
+        state = true;
+        num = PedestrianMovingTime/1000; 
+       }
         while (pedSignEnd - pedSignStart < 1000) 
         {
           printNumMatrix(num);                  // 10 ~ 0 출력
@@ -231,6 +236,7 @@ void loop() {
       YellowBlink(YellowLED_2);     // 좌우 노란색 켜기
       digitalWrite(RedLED_1, LOW); digitalWrite(GreenLED_1, HIGH); // 상하 신호 빨간색 끄고 초록색 켜기
       digitalWrite(RedLED_2, HIGH); // 좌우 신호 다시 빨간색
+      
       startTime = millis(); //차량 신호의 길이를 0초부터 다시 시작
     } // 보행
     endTime = millis();
